@@ -1,0 +1,10 @@
+<h1>Welcome</h1>
+<% @orders.each do |order| %>
+  <p>
+    <% if order.bill_canceled? || order.bill_payed? %>
+    <%= "Pedido ##{order.id}, R$ #{order.value} - #{order.bill_status}" %>
+    <% else %>
+    <%= button_to("Pagar Pedido ##{order.id}, R$ #{order.value} - #{order.bill_status}", :action => :checkout, :id => order.id) %>
+    <% end %>
+  </p>
+<% end %>

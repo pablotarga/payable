@@ -1,0 +1,44 @@
+
+<% @order.gateway_payment.config.each do |k, v| %>
+<p>
+  <%= k %>: <%= v %>
+</p>
+<% end %>
+
+
+<fieldset>
+  <legend>Campos Crédito</legend>
+  
+  <p class="operadora">
+    <span><label for="operadora_AmericanExpress"><%= radio_button_tag 'operadora', 'AmericanExpress' %> AmericanExpress</label></span>
+    <span><label for="operadora_Diners"><%= radio_button_tag 'operadora', 'Diners' %> Diners</label></span>
+    <span><label for="operadora_Hipercard"><%= radio_button_tag 'operadora', 'Hipercard' %> Hipercard</label></span>
+    <span><label for="operadora_Mastercard"><%= radio_button_tag 'operadora', 'Mastercard' %> Mastercard</label></span>
+    <span><label for="operadora_Visa"><%= radio_button_tag 'operadora', 'Visa' %> Visa</label></span>
+  </p>
+  
+  <p>
+    <label for="credit_number">Número</label>: <%= text_field_tag "credit_number" %>
+  </p>
+
+  <p>
+    <label for="expires_date">Validade</label>: <%= text_field_tag "expires_date" %> MM/AA
+  </p>
+
+  <p>
+    <label for="security_code">Cód. Segurança</label>: <%= text_field_tag "security_code" %>
+  </p>
+   
+   <%= button_to_function "Pagar", "alert('pagando');processaPagtoCredito()" %>
+</fieldset>
+
+
+
+
+<%= content_tag(:div, nil, 'id' => 'MoipWidget',
+                           'data-token' => @order.payable_token,
+                           'callback-method-success' => 'func1',
+                           'callback-method-error' => 'func2' ) %>
+
+
+<%= link_to "Voltar", root_url %>
